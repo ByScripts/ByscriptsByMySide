@@ -1,9 +1,10 @@
 {
-    "name":              "byscripts/smartbar",
-    "license":           "MIT",
-    "authors":           [
+    "name": "byscripts/smartbar",
+    "description": "A customizable HTML toolbar",
+    "license": "MIT",
+    "authors": [
         {
-            "name":  "Thierry Goettelmann",
+            "name": "Thierry Goettelmann",
             "email": "thierry@byscripts.info"
         }
     ],

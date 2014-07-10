@@ -19,11 +19,6 @@ class SmartBarItem
     private $icon;
 
     /**
-     * @var
-     */
-    private $url;
-
-    /**
      * @param string      $label
      * @param string|null $icon
      * @param string|null $url
