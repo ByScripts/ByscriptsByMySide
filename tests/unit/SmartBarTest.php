@@ -1,18 +1,18 @@
 <?php
 
-use Byscripts\SmartBar\SmartBar;
+use Byscripts\SmartBar\SmartBarBlock;
 use Byscripts\SmartBar\SmartBarItem;
 
 class SmartBarTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var SmartBar
+     * @var SmartBarBlock
      */
     private $smartBar;
 
     protected function setUp()
     {
-        $this->smartBar = new SmartBar();
+        $this->smartBar = new SmartBarBlock();
     }
 
     protected function tearDown()
@@ -29,7 +29,7 @@ class SmartBarTest extends \PHPUnit_Framework_TestCase
             $item->render()
         );
 
-        $smartBar = new SmartBar();
+        $smartBar = new SmartBarBlock();
         $smartBar->addItem($item);
         $this->assertEquals(
             '<div class="smartbar"><span class="smartbar-item"><span class="smartbar-item-icon">H</span><span class="smartbar-item-label">Hello World</span></span></div>',

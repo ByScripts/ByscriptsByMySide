@@ -1,0 +1,181 @@
+// SMARTBAR WIDTH
+$smartbar-width: 60px !default;
+
+// SMARTBAR FADE DURATION
+$smartbar-fade-duration: 0.3s !default;
+
+// SMARTBAR DEFAULT COLORS
+$smartbar-default-bg-color: #333 !default;
+$smartbar-default-text-color: #FFFFFF !default;
+
+// SMARTBAR DEFAULT HOVER COLORS
+$smartbar-default-bg-color-hover: lighten($smartbar-default-bg-color, 7%) !default;
+$smartbar-default-text-color-hover: lighten($smartbar-default-text-color, 7%) !default;
+
+// ACTIVATION OF ADDITIONAL BRAND COLORS
+$smartbar-activate-brand-colors: false !default;
+
+// SMARTBAR ITEM EXTRA COLORS
+$smartbar-item-extra-colors: () !default;
+$-smartbar-item-extra-colors: (
+        green: (bg: #5CB85C, text: #FFFFFF),
+        red: (bg: #D9534f, text: #FFFFFF),
+        yellow: (bg: #F0AD4E, text: #FFFFFF),
+        blue: (bg: #5BC0DE, text: #FFFFFF)
+);
+
+// SMARTBAR ITEM BRANDS COLORS
+@if $smartbar-activate-brand-colors {
+    $-smartbar-item-extra-colors: map_merge(
+                    $-smartbar-item-extra-colors,
+                    (
+                            rss: (bg: #FF7900, text: #FFFFFF),
+                            twitter: (bg: #55acee, text: #FFFFFF),
+                            google-plus: (bg: #CC3732, text: #FFFFFF),
+                            facebook: (bg: #3B5999, text: #FFFFFF),
+                            dribbble: (bg: #EA4C89, text: #FFFFFF),
+                            dropbox: (bg: #007EE5, text: #FFFFFF),
+                            deviantart: (bg: #506256, text: #FFFFFF),
+                            bitbucket: (bg: #205081, text: #FFFFFF),
+                            instagram: (bg: #3f729b, text: #FFFFFF),
+                            tumblr: (bg: #2C4762, text: #FFFFFF),
+                            youtube: (bg: #C4302B, text: #FFFFFF),
+                            reddit: (bg: #FF4500, text: #FFFFFF),
+                            flickr: (bg: #FF0084, text: #FFFFFF),
+                            behance: (bg: #1769FF, text: #FFFFFF),
+                            linkedin: (bg: #3399CC, text: #FFFFFF),
+                            vine: (bg: #00b488, text: #FFFFFF),
+                            stack-overflow: (bg: #FE7A15, text: #FFFFFF),
+                            stumbleupon: (bg: #EB4924, text: #FFFFFF),
+                            skype: (bg: #00AFF0, text: #FFFFFF),
+                            pinterest: (bg: #CB2027, text: #FFFFFF)
+                    )
+    ) !global;
+}
+
+$-smartbar-item-extra-colors: map_merge($-smartbar-item-extra-colors, $smartbar-item-extra-colors);
+
+// SMARTBAR FONT SIZE
+$smartbar-font-size: $smartbar-width / 2 !default;
+
+// SMARTBAR BORDER RADIUS
+$smartbar-radius: $smartbar-width / 6 !default;
+
+// SMARTBAR OFFSETS
+$smartbar-offset-top: 20px !default;
+$smartbar-offset-bottom: 20px !default;
+
+.smartbar-container {
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: $smartbar-width;
+    background-color: $smartbar-default-bg-color;
+
+    &-left {
+        left: 0;
+    }
+
+    &-right {
+        right: 0;
+    }
+}
+
+.smartbar {
+
+    position: absolute;
+    white-space: nowrap;
+    display: table;
+    overflow: hidden;
+    background-color: inherit;
+    font-size: $smartbar-font-size;
+
+    &-top {
+        top: $smartbar-offset-top;
+    }
+
+    &-bottom {
+        bottom: $smartbar-offset-bottom;
+    }
+
+    .smartbar-container-left & {
+        left: 0;
+        &:hover, &-visible {
+            border-radius: 0 $smartbar-radius $smartbar-radius 0;
+        }
+    }
+
+    .smartbar-container-right & {
+        right: 0;
+        &:hover, &-visible {
+            border-radius: $smartbar-radius 0 0 $smartbar-radius;
+        }
+    }
+}
+
+.smartbar-item {
+    display: table-row;
+    cursor: pointer;
+    text-decoration: none;
+    color: $smartbar-default-text-color;
+    transition: $smartbar-fade-duration all;
+
+    &:hover {
+        text-decoration: none;
+        background-color: $smartbar-default-bg-color-hover;
+        color: $smartbar-default-text-color-hover;
+    }
+
+    @each $style, $colors in $-smartbar-item-extra-colors {
+        &-color-#{$style}:hover {
+            background-color: map_get($colors, 'bg');
+            color: map_get($colors, 'text');
+        }
+    }
+
+    .smartbar-container-left & {
+        text-align: left;
+    }
+
+    .smartbar-container-right & {
+        text-align: right;
+    }
+}
+
+.smartbar-item-icon {
+
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    transition: $smartbar-fade-duration all;
+    min-width: $smartbar-width;
+    height: $smartbar-width;
+    color: inherit;
+
+    @each $style, $colors in $-smartbar-item-extra-colors {
+        .smartbar-item-color-#{$style}.smartbar-item-highlight & {
+            background-color: map_get($colors, 'bg');
+            color: map_get($colors, 'text');
+        }
+    }
+}
+
+.smartbar-item-label {
+    display: none;
+    vertical-align: middle;
+    color: inherit;
+
+    .smartbar:hover &, .smartbar-visible & {
+        display: table-cell;
+        transition: $smartbar-fade-duration all;
+    }
+
+    .smartbar-container-left & {
+        padding: 0 20px 0 10px;
+    }
+
+    .smartbar-container-right & {
+        padding: 0 10px 0 20px;
+    }
+}

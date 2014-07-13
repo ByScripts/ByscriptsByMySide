@@ -4,65 +4,115 @@ namespace Byscripts\SmartBar;
 
 class SmartBar
 {
-    /**
-     * @var SmartBarItem[]
-     */
-    private $items = [];
+    const ICON_FORMAT_RAW = '%s';
+    const ICON_FORMAT_BOOTSTRAP = '<span class="glyphicon glyphicon-%s"></span>';
+    const ICON_FORMAT_FONTAWESOME = '<span class="fa fa-%s"></span>';
 
-    /**
-     * Add one or more items
-     *
-     * @param SmartBarItem $item
-     * @param              SmartBarItem ...
-     *
-     * @return SmartBar
-     */
-    public function addItem(SmartBarItem $item)
+    private static $iconFormat = self::ICON_FORMAT_FONTAWESOME;
+
+    public static function setIconFormat($format)
     {
-        $this->items = array_merge($this->items, func_get_args());
+        self::$iconFormat = $format;
+    }
 
-        return $this;
+    public static function buildIcon($icon, $format = null)
+    {
+        return sprintf($format ?: self::$iconFormat, $icon);
     }
 
     /**
-     * Add one or more items to the top of bar
-     *
-     * @param SmartBarItem $item
-     * @param              SmartBarItem ...
-     *
-     * @return SmartBar
+     * @var SmartBarContainer
      */
-    public function addItemToTop(SmartBarItem $item)
-    {
-        $this->items = array_merge(func_get_args(), $this->items);
-
-        return $this;
-    }
+    private $leftContainer;
 
     /**
-     * Create and return a new item
-     * (don't add it to the stack)
-     *
-     * @param string      $label
-     * @param string|null $icon
-     * @param string|null $url
-     * @param array       $attributes
-     *
-     * @return \Byscripts\SmartBar\SmartBarItem
+     * @var SmartBarContainer
      */
-    public function item($label, $icon = null, $url = null, $attributes = [])
-    {
-        return new SmartBarItem($label, $icon, $url, $attributes);
-    }
+    private $rightContainer;
 
-    public function render()
+    /**
+     * @return SmartBarContainer
+     */
+    public function left()
     {
-        $output = '<div class="smartbar">';
-
-        foreach ($this->items as $item) {
-            $output .= $item->render();
+        if (null === $this->leftContainer) {
+            $this->leftContainer = new SmartBarContainer(SmartBarContainer::LEFT);
         }
 
-        return $output . '</div>';
+        return $this->leftContainer;
+    }
+
+    /**
+     * @return SmartBarContainer
+     */
+    public function right()
+    {
+        if (null === $this->rightContainer) {
+            $this->rightContainer = new SmartBarContainer(SmartBarContainer::RIGHT);
+        }
+
+        return $this->rightContainer;
+    }
+
+    /**
+     * @return SmartBarBlock
+     */
+    public function topLeft()
+    {
+        return $this->left()->top();
+    }
+
+    /**
+     * @return SmartBarBlock
+     */
+    public function bottomLeft()
+    {
+        return $this->left()->bottom();
+    }
+
+    /**
+     * @return SmartBarBlock
+     */
+    public function topRight()
+    {
+        return $this->right()->top();
+    }
+
+    /**
+     * @return SmartBarBlock
+     */
+    public function bottomRight()
+    {
+        return $this->right()->bottom();
+    }
+
+    /**
+     * Shortcut to create a new item
+     *
+     * @param string      $label
+     *
+     * @return SmartBarItem
+     */
+    public function item($label)
+    {
+        return new SmartBarItem($label);
+    }
+
+    /**
+     * @return string
+     */
+    public function render()
+    {
+        $output = '';
+
+        if(null !== $this->leftContainer) {
+            $output .= $this->leftContainer->render();
+        }
+
+        if(null !== $this->rightContainer) {
+            $output .= $this->rightContainer->render();
+        }
+
+        return $output;
     }
 }
