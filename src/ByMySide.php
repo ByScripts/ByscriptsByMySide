@@ -1,14 +1,14 @@
 <?php
 
-namespace Byscripts\SmartBar;
+namespace Byscripts\ByMySide;
 
-class SmartBar
+class ByMySide
 {
     const ICON_FORMAT_RAW = '%s';
     const ICON_FORMAT_BOOTSTRAP = '<span class="glyphicon glyphicon-%s"></span>';
     const ICON_FORMAT_FONTAWESOME = '<span class="fa fa-%s"></span>';
 
-    private static $iconFormat = self::ICON_FORMAT_FONTAWESOME;
+    private static $iconFormat = self::ICON_FORMAT_RAW;
 
     public static function setIconFormat($format)
     {
@@ -21,41 +21,41 @@ class SmartBar
     }
 
     /**
-     * @var SmartBarContainer
+     * @var ByMySideContainer
      */
     private $leftContainer;
 
     /**
-     * @var SmartBarContainer
+     * @var ByMySideContainer
      */
     private $rightContainer;
 
     /**
-     * @return SmartBarContainer
+     * @return ByMySideContainer
      */
     public function left()
     {
         if (null === $this->leftContainer) {
-            $this->leftContainer = new SmartBarContainer(SmartBarContainer::LEFT);
+            $this->leftContainer = new ByMySideContainer(ByMySideContainer::LEFT);
         }
 
         return $this->leftContainer;
     }
 
     /**
-     * @return SmartBarContainer
+     * @return ByMySideContainer
      */
     public function right()
     {
         if (null === $this->rightContainer) {
-            $this->rightContainer = new SmartBarContainer(SmartBarContainer::RIGHT);
+            $this->rightContainer = new ByMySideContainer(ByMySideContainer::RIGHT);
         }
 
         return $this->rightContainer;
     }
 
     /**
-     * @return SmartBarBlock
+     * @return ByMySideBlock
      */
     public function topLeft()
     {
@@ -63,7 +63,7 @@ class SmartBar
     }
 
     /**
-     * @return SmartBarBlock
+     * @return ByMySideBlock
      */
     public function bottomLeft()
     {
@@ -71,7 +71,7 @@ class SmartBar
     }
 
     /**
-     * @return SmartBarBlock
+     * @return ByMySideBlock
      */
     public function topRight()
     {
@@ -79,7 +79,7 @@ class SmartBar
     }
 
     /**
-     * @return SmartBarBlock
+     * @return ByMySideBlock
      */
     public function bottomRight()
     {
@@ -91,11 +91,11 @@ class SmartBar
      *
      * @param string      $label
      *
-     * @return SmartBarItem
+     * @return ByMySideItem
      */
     public function item($label)
     {
-        return new SmartBarItem($label);
+        return new ByMySideItem($label);
     }
 
     /**

@@ -1,15 +1,15 @@
 <?php
 
-namespace Byscripts\SmartBar;
+namespace Byscripts\ByMySide;
 
 use Byscripts\HtmlAttributes\HtmlAttributesTrait;
 
 /**
- * Class SmartBarItem
+ * Class ByMySideItem
  *
- * @package Byscripts\SmartBar
+ * @package Byscripts\ByMySide
  */
-class SmartBarItem
+class ByMySideItem
 {
     use HtmlAttributesTrait;
 
@@ -41,7 +41,7 @@ class SmartBarItem
     /**
      * @var string
      */
-    private $color;
+    private $scheme;
 
     /**
      * @param string $label
@@ -50,22 +50,23 @@ class SmartBarItem
     {
         $this
             ->label($label)
-            ->icon(substr($label, 0, 1), SmartBar::ICON_FORMAT_RAW)
-            ->addClass('smartbar-item');
+            ->icon(substr($label, 0, 1), ByMySide::ICON_FORMAT_RAW)
+            ->scheme('default')
+            ->addClass('bymyside-item');
     }
 
-    public static function addStyle($name, $color = null, $icon = null, $highlight = false, array $attributes = [])
+    public static function addStyle($name, $scheme = null, $icon = null, $highlight = false, array $attributes = [])
     {
-        self::$styles[ $name ] = compact('color', 'icon', 'highlight', 'attributes');
+        self::$styles[ $name ] = compact('scheme', 'icon', 'highlight', 'attributes');
     }
 
-    private static function applyStyle($name, SmartBarItem $item)
+    private static function applyStyle($name, ByMySideItem $item)
     {
         if (array_key_exists($name, self::$styles)) {
 
             extract(self::$styles[ $name ]);
 
-            !empty($color) && $item->color($color);
+            !empty($scheme) && $item->scheme($scheme);
             !empty($icon) && $item->icon($icon);
             !empty($highlight) && $item->highlight();
             !empty($attributes) && $item->setAttributes($attributes);
@@ -75,7 +76,7 @@ class SmartBarItem
     /**
      * @param $url
      *
-     * @return SmartBarItem
+     * @return ByMySideItem
      */
     public function url($url)
     {
@@ -87,7 +88,7 @@ class SmartBarItem
     /**
      * @param $label
      *
-     * @return SmartBarItem
+     * @return ByMySideItem
      */
     public function label($label)
     {
@@ -102,49 +103,49 @@ class SmartBarItem
      * @param string $icon
      * @param null   $format
      *
-     * @return SmartBarItem
+     * @return ByMySideItem
      */
     public function icon($icon = null, $format = null)
     {
-        $this->icon = SmartBar::buildIcon($icon ?: $this->color, $format);
+        $this->icon = ByMySide::buildIcon($icon ?: $this->scheme, $format);
 
         return $this;
     }
 
     public function red()
     {
-        return $this->style('red');
+        return $this->scheme('red');
     }
 
     public function green()
     {
-        return $this->style('green');
+        return $this->scheme('green');
     }
 
     public function blue()
     {
-        return $this->style('blue');
+        return $this->scheme('blue');
     }
 
     public function yellow()
     {
-        return $this->style('yellow');
+        return $this->scheme('yellow');
     }
 
     /**
-     * @return SmartBarItem
+     * @return ByMySideItem
      */
     public function highlight()
     {
-        return $this->addClass('smartbar-item-highlight');
+        return $this->addClass('bymyside-item-highlight');
     }
 
-    public function color($color)
+    public function scheme($scheme)
     {
-        $this->removeClass('smartbar-item-color-' . $this->color);
-        $this->color = $color;
+        $this->removeClass('bymyside-item-scheme-' . $this->scheme);
+        $this->scheme = $scheme;
 
-        return $this->addClass('smartbar-item-color-' . $color);
+        return $this->addClass('bymyside-item-scheme-' . $scheme);
     }
 
     public function style($style)
@@ -159,11 +160,11 @@ class SmartBarItem
      */
     public function render()
     {
-        $icon  = sprintf('<span class="smartbar-item-icon">%s</span>', $this->icon);
-        $label = sprintf('<span class="smartbar-item-label">%s</span>', $this->label);
+        $icon  = sprintf('<span class="bymyside-item-icon">%s</span>', $this->icon);
+        $label = sprintf('<span class="bymyside-item-label">%s</span>', $this->label);
         $tag   = $this->hasAttribute('href') ? 'a' : 'span';
 
-        if (SmartBarBlock::LEFT === $this->horizontalPosition) {
+        if (ByMySideBlock::LEFT === $this->horizontalPosition) {
             $format = '<%1$s %2$s>%3$s%4$s</%1$s>';
         } else {
             $format = '<%1$s %2$s>%4$s%3$s</%1$s>';
@@ -176,7 +177,7 @@ class SmartBarItem
      * @param $horizontalPosition
      * @param $verticalPosition
      *
-     * @return SmartBarItem
+     * @return ByMySideItem
      */
     public function setPosition($horizontalPosition, $verticalPosition)
     {

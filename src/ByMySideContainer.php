@@ -1,8 +1,8 @@
 <?php
 
-namespace Byscripts\SmartBar;
+namespace Byscripts\ByMySide;
 
-class SmartBarContainer
+class ByMySideContainer
 {
     const LEFT = 'left';
     const RIGHT = 'right';
@@ -13,12 +13,12 @@ class SmartBarContainer
     private $horizontalPosition = false;
 
     /**
-     * @var SmartBarBlock
+     * @var ByMySideBlock
      */
     private $topBlock;
 
     /**
-     * @var SmartBarBlock
+     * @var ByMySideBlock
      */
     private $bottomBlock;
 
@@ -28,24 +28,24 @@ class SmartBarContainer
     }
 
     /**
-     * @return SmartBarBlock
+     * @return ByMySideBlock
      */
     public function top()
     {
         if(null === $this->topBlock) {
-            $this->topBlock = new SmartBarBlock($this->horizontalPosition, SmartBarBlock::TOP);
+            $this->topBlock = new ByMySideBlock($this->horizontalPosition, ByMySideBlock::TOP);
         }
 
         return $this->topBlock;
     }
 
     /**
-     * @return SmartBarBlock
+     * @return ByMySideBlock
      */
     public function bottom()
     {
         if(null === $this->bottomBlock) {
-            $this->bottomBlock = new SmartBarBlock($this->horizontalPosition, SmartBarBlock::BOTTOM);
+            $this->bottomBlock = new ByMySideBlock($this->horizontalPosition, ByMySideBlock::BOTTOM);
         }
 
         return $this->bottomBlock;
@@ -67,7 +67,7 @@ class SmartBarContainer
         }
 
         if (!empty($content)) {
-            return sprintf('<div class="smartbar-container smartbar-container-%s">%s</div>', $this->horizontalPosition, $content);
+            return sprintf('<div class="bymyside-container bymyside-container-%s">%s</div>', $this->horizontalPosition, $content);
         }
 
         return '';

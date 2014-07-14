@@ -1,5 +1,0 @@
-#!/bin/bash
-sass smartbar.scss:smartbar.css
-sass --style compressed smartbar.scss:smarbar.min.css --sourcemap
-sass smartbar-with-brands.scss:smartbar-with-brands.css
-sass --style compressed smartbar-with-brands.scss:smarbar-with-brands.min.css --sourcemap

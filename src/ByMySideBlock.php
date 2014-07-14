@@ -1,8 +1,8 @@
 <?php
 
-namespace Byscripts\SmartBar;
+namespace Byscripts\ByMySide;
 
-class SmartBarBlock
+class ByMySideBlock
 {
     const LEFT = 'left';
     const RIGHT = 'right';
@@ -10,7 +10,7 @@ class SmartBarBlock
     const BOTTOM = 'bottom';
 
     /**
-     * @var SmartBarItem[]
+     * @var ByMySideItem[]
      */
     private $items = [];
 
@@ -26,12 +26,12 @@ class SmartBarBlock
     /**
      * Add one or more items
      *
-     * @param SmartBarItem $item
-     * @param              SmartBarItem ...
+     * @param ByMySideItem $item
+     * @param ByMySideItem ...
      *
-     * @return SmartBarBlock
+     * @return ByMySideBlock
      */
-    public function addItem(SmartBarItem $item)
+    public function addItem(ByMySideItem $item)
     {
         $this->items = array_merge(
             $this->items,
@@ -44,12 +44,12 @@ class SmartBarBlock
     /**
      * Add one or more items to the top of bar
      *
-     * @param SmartBarItem $item
-     * @param              SmartBarItem ...
+     * @param ByMySideItem $item
+     * @param ByMySideItem ...
      *
-     * @return SmartBarBlock
+     * @return ByMySideBlock
      */
-    public function addItemToTop(SmartBarItem $item)
+    public function addItemToTop(ByMySideItem $item)
     {
         $this->items = array_merge(
             $this->setItemCollectionPosition(func_get_args()),
@@ -71,7 +71,7 @@ class SmartBarBlock
         }
 
         if (!empty($content)) {
-            return sprintf('<div class="smartbar smartbar-%s">%s</div>', $this->verticalPosition, $content);
+            return sprintf('<div class="bymyside-block bymyside-block-%s">%s</div>', $this->verticalPosition, $content);
         }
 
         return '';
@@ -85,7 +85,7 @@ class SmartBarBlock
     private function setItemCollectionPosition(array $items)
     {
         return array_map(
-            function (SmartBarItem $item) {
+            function (ByMySideItem $item) {
                 return $item->setPosition($this->horizontalPosition, $this->verticalPosition);
             },
             $items
