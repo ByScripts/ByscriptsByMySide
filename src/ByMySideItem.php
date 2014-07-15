@@ -14,11 +14,6 @@ class ByMySideItem
     use HtmlAttributesTrait;
 
     /**
-     * @var array
-     */
-    private static $styles = [];
-
-    /**
      * @var string
      */
     private $label;
@@ -53,24 +48,6 @@ class ByMySideItem
             ->icon(substr($label, 0, 1), ByMySide::ICON_FORMAT_RAW)
             ->scheme('default')
             ->addClass('bymyside-item');
-    }
-
-    public static function addStyle($name, $scheme = null, $icon = null, $highlight = false, array $attributes = [])
-    {
-        self::$styles[ $name ] = compact('scheme', 'icon', 'highlight', 'attributes');
-    }
-
-    private static function applyStyle($name, ByMySideItem $item)
-    {
-        if (array_key_exists($name, self::$styles)) {
-
-            extract(self::$styles[ $name ]);
-
-            !empty($scheme) && $item->scheme($scheme);
-            !empty($icon) && $item->icon($icon);
-            !empty($highlight) && $item->highlight();
-            !empty($attributes) && $item->setAttributes($attributes);
-        }
     }
 
     /**
@@ -150,7 +127,7 @@ class ByMySideItem
 
     public function style($style)
     {
-        self::applyStyle($style, $this);
+        ByMySide::applyStyle($style, $this);
 
         return $this;
     }

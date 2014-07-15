@@ -33,4 +33,14 @@ class ByMySideTest extends \PHPUnit_Framework_TestCase
             $bms->render()
         );
     }
+
+    public function testCustomStyles()
+    {
+        ByMySide::addStyle('foobar', 'red', 'foobar', true, ['id' => 'foobar']);
+        $bms = new ByMySide();
+
+        $bms->topLeft()->addItem($bms->item('Hello World')->style('foobar'));
+
+        $this->assertEquals('<div class="bymyside-container bymyside-container-left"><div class="bymyside-block bymyside-block-top"><span class="bymyside-item bymyside-item-scheme-red bymyside-item-highlight" id="foobar"><span class="bymyside-item-icon">foobar</span><span class="bymyside-item-label">Hello World</span></span></div></div>', $bms->render());
+    }
 }

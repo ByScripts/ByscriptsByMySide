@@ -8,7 +8,15 @@ class ByMySide
     const ICON_FORMAT_BOOTSTRAP = '<span class="glyphicon glyphicon-%s"></span>';
     const ICON_FORMAT_FONTAWESOME = '<span class="fa fa-%s"></span>';
 
+    /**
+     * @var string
+     */
     private static $iconFormat = self::ICON_FORMAT_RAW;
+
+    /**
+     * @var array
+     */
+    private static $styles = [];
 
     public static function setIconFormat($format)
     {
@@ -18,6 +26,24 @@ class ByMySide
     public static function buildIcon($icon, $format = null)
     {
         return sprintf($format ?: self::$iconFormat, $icon);
+    }
+
+    public static function addStyle($name, $scheme = null, $icon = null, $highlight = false, array $attributes = [])
+    {
+        self::$styles[ $name ] = compact('scheme', 'icon', 'highlight', 'attributes');
+    }
+
+    public static function applyStyle($name, ByMySideItem $item)
+    {
+        if (array_key_exists($name, self::$styles)) {
+
+            extract(self::$styles[ $name ]);
+
+            !empty($scheme) && $item->scheme($scheme);
+            !empty($icon) && $item->icon($icon);
+            !empty($highlight) && $item->highlight();
+            !empty($attributes) && $item->setAttributes($attributes);
+        }
     }
 
     /**
