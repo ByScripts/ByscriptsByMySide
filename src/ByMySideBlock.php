@@ -4,8 +4,6 @@ namespace Byscripts\ByMySide;
 
 class ByMySideBlock
 {
-    const LEFT = 'left';
-    const RIGHT = 'right';
     const TOP = 'top';
     const BOTTOM = 'bottom';
 
@@ -14,12 +12,13 @@ class ByMySideBlock
      */
     private $items = [];
 
-    private $horizontalPosition = false;
-    private $verticalPosition = false;
+    /**
+     * @var string The vertical position (top or bottom block)
+     */
+    private $verticalPosition;
 
-    function __construct($horizontalPosition, $verticalPosition)
+    function __construct($verticalPosition)
     {
-        $this->horizontalPosition = $horizontalPosition;
         $this->verticalPosition  = $verticalPosition;
     }
 
@@ -29,14 +28,11 @@ class ByMySideBlock
      * @param ByMySideItem $item
      * @param ByMySideItem ...
      *
-     * @return ByMySideBlock
+     * @return $this
      */
     public function addItem(ByMySideItem $item)
     {
-        $this->items = array_merge(
-            $this->items,
-            $this->setItemCollectionPosition(func_get_args())
-        );
+        $this->items = array_merge($this->items, func_get_args());
 
         return $this;
     }
@@ -51,10 +47,7 @@ class ByMySideBlock
      */
     public function addItemToTop(ByMySideItem $item)
     {
-        $this->items = array_merge(
-            $this->setItemCollectionPosition(func_get_args()),
-            $this->items
-        );
+        $this->items = array_merge(func_get_args(), $this->items);
 
         return $this;
     }
@@ -75,20 +68,5 @@ class ByMySideBlock
         }
 
         return '';
-    }
-
-    /**
-     * @param array $items
-     *
-     * @return array
-     */
-    private function setItemCollectionPosition(array $items)
-    {
-        return array_map(
-            function (ByMySideItem $item) {
-                return $item->setPosition($this->horizontalPosition, $this->verticalPosition);
-            },
-            $items
-        );
     }
 }
