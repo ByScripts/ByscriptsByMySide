@@ -175,13 +175,14 @@ class ByMySide
     /**
      * Shortcut to create a new item
      *
-     * @param string      $label
+     * @param string $label The item label
+     * @param null   $style An optional predefined style to apply
      *
      * @return ByMySideItem
      */
-    public function item($label)
+    public function item($label, $style = null)
     {
-        return new ByMySideItem($label);
+        return new ByMySideItem($label, $style);
     }
 
     /**

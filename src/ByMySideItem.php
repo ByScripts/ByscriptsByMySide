@@ -30,14 +30,19 @@ class ByMySideItem
 
     /**
      * @param string $label
+     * @param null   $style
      */
-    public function __construct($label)
+    public function __construct($label, $style = null)
     {
         $this
             ->label($label)
-            ->icon(substr($label, 0, 1), ByMySide::ICON_FORMAT_RAW)
+            ->icon(mb_substr($label, 0, 1), ByMySide::ICON_FORMAT_RAW)
             ->scheme('default')
             ->addClass('bymyside-item');
+
+        if (null !== $style) {
+            $this->style($style);
+        }
     }
 
     /**
