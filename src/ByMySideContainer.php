@@ -10,7 +10,7 @@ class ByMySideContainer
     /**
      * @var string
      */
-    private $horizontalPosition = false;
+    private $horizontalPosition;
 
     /**
      * @var ByMySideBlock
@@ -32,8 +32,8 @@ class ByMySideContainer
      */
     public function top()
     {
-        if(null === $this->topBlock) {
             $this->topBlock = new ByMySideBlock($this->horizontalPosition, ByMySideBlock::TOP);
+        if(!$this->hasTopBlock()) {
         }
 
         return $this->topBlock;
@@ -44,11 +44,27 @@ class ByMySideContainer
      */
     public function bottom()
     {
-        if(null === $this->bottomBlock) {
             $this->bottomBlock = new ByMySideBlock($this->horizontalPosition, ByMySideBlock::BOTTOM);
+        if(!$this->hasBottomBlock()) {
         }
 
         return $this->bottomBlock;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasTopBlock()
+    {
+        return null !== $this->topBlock;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasBottomBlock()
+    {
+        return null !== $this->bottomBlock;
     }
 
     /**
@@ -58,11 +74,11 @@ class ByMySideContainer
     {
         $content = '';
 
-        if (null !== $this->topBlock) {
+        if ($this->hasTopBlock()) {
             $content .= $this->topBlock->render();
         }
 
-        if (null !== $this->bottomBlock) {
+        if ($this->hasBottomBlock()) {
             $content .= $this->bottomBlock->render();
         }
 
