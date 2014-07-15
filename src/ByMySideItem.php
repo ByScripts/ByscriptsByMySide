@@ -46,9 +46,11 @@ class ByMySideItem
     }
 
     /**
+     * Set an URL
+     *
      * @param $url
      *
-     * @return ByMySideItem
+     * @return $this
      */
     public function url($url)
     {
@@ -58,9 +60,11 @@ class ByMySideItem
     }
 
     /**
+     * Set a label
+     *
      * @param $label
      *
-     * @return ByMySideItem
+     * @return $this
      */
     public function label($label)
     {
@@ -70,12 +74,12 @@ class ByMySideItem
     }
 
     /**
-     * Set a raw icon
+     * Set an icon
      *
-     * @param string $icon
-     * @param null   $format
+     * @param string      $icon   The icon to set
+     * @param string|null $format The format (printf)
      *
-     * @return ByMySideItem
+     * @return $this
      */
     public function icon($icon = null, $format = null)
     {
@@ -95,34 +99,64 @@ class ByMySideItem
     {
         return $this->setAttributes($attributes);
     }
+
+    /**
+     * Apply "red" scheme
+     *
+     * @return $this
+     */
     public function red()
     {
         return $this->scheme('red');
     }
 
+    /**
+     * Apply "green" scheme
+     *
+     * @return $this
+     */
     public function green()
     {
         return $this->scheme('green');
     }
 
+    /**
+     * Apply "blue" scheme
+     *
+     * @return $this
+     */
     public function blue()
     {
         return $this->scheme('blue');
     }
 
+    /**
+     * Apply "blue" scheme
+     *
+     * @return $this
+     */
     public function yellow()
     {
         return $this->scheme('yellow');
     }
 
     /**
-     * @return ByMySideItem
+     * Highlight the item icon
+     *
+     * @return $this
      */
     public function highlight()
     {
         return $this->addClass('bymyside-item-highlight');
     }
 
+    /**
+     * Apply a scheme
+     *
+     * @param $scheme
+     *
+     * @return $this
+     */
     public function scheme($scheme)
     {
         $this->removeClass('bymyside-item-scheme-' . $this->scheme);
@@ -131,6 +165,13 @@ class ByMySideItem
         return $this->addClass('bymyside-item-scheme-' . $scheme);
     }
 
+    /**
+     * Apply a style
+     *
+     * @param $style
+     *
+     * @return $this
+     */
     public function style($style)
     {
         ByMySide::applyStyle($style, $this);
