@@ -32,8 +32,8 @@ class ByMySideContainer
      */
     public function top()
     {
-            $this->topBlock = new ByMySideBlock($this->horizontalPosition, ByMySideBlock::TOP);
         if(!$this->hasTopBlock()) {
+            $this->topBlock = new ByMySideBlock(ByMySideBlock::TOP);
         }
 
         return $this->topBlock;
@@ -44,8 +44,8 @@ class ByMySideContainer
      */
     public function bottom()
     {
-            $this->bottomBlock = new ByMySideBlock($this->horizontalPosition, ByMySideBlock::BOTTOM);
         if(!$this->hasBottomBlock()) {
+            $this->bottomBlock = new ByMySideBlock(ByMySideBlock::BOTTOM);
         }
 
         return $this->bottomBlock;
