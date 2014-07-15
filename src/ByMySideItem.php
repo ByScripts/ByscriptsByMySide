@@ -84,6 +84,17 @@ class ByMySideItem
         return $this;
     }
 
+    /**
+     * Alias for setAttributes
+     *
+     * @param array $attributes
+     *
+     * @return $this
+     */
+    public function attributes(array $attributes)
+    {
+        return $this->setAttributes($attributes);
+    }
     public function red()
     {
         return $this->scheme('red');
