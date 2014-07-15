@@ -26,16 +26,6 @@ class ByMySideItem
     /**
      * @var string
      */
-    private $horizontalPosition;
-
-    /**
-     * @var string
-     */
-    private $verticalPosition;
-
-    /**
-     * @var string
-     */
     private $scheme;
 
     /**
@@ -133,34 +123,22 @@ class ByMySideItem
     }
 
     /**
+     * Render the item
+     *
      * @return string
      */
     public function render()
     {
-        $icon  = sprintf('<span class="bymyside-item-icon">%s</span>', $this->icon);
-        $label = sprintf('<span class="bymyside-item-label">%s</span>', $this->label);
-        $tag   = $this->hasAttribute('href') ? 'a' : 'span';
-
-        if (ByMySideBlock::LEFT === $this->horizontalPosition) {
-            $format = '<%1$s %2$s>%3$s%4$s</%1$s>';
-        } else {
-            $format = '<%1$s %2$s>%4$s%3$s</%1$s>';
-        }
-
-        return sprintf($format, $tag, $this->renderAttributes(), $icon, $label);
-    }
-
-    /**
-     * @param $horizontalPosition
-     * @param $verticalPosition
-     *
-     * @return ByMySideItem
-     */
-    public function setPosition($horizontalPosition, $verticalPosition)
-    {
-        $this->horizontalPosition = $horizontalPosition;
-        $this->verticalPosition   = $verticalPosition;
-
-        return $this;
+        return sprintf(
+            '<%s %s>' .
+            '<span class="bymyside-item-icon">%s</span>' .
+            '<span class="bymyside-item-label">%s</span>' .
+            '</%s>',
+            $tag = $this->hasAttribute('href') ? 'a' : 'span',
+            $this->renderAttributes(),
+            $this->icon,
+            $this->label,
+            $tag
+        );
     }
 }
