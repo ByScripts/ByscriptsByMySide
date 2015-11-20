@@ -54,7 +54,7 @@ class ByMySideItem
      */
     public function url($url)
     {
-        $this->setAttribute('href', htmlspecialchars($url));
+        $this->setAttribute('href', $url);
 
         return $this;
     }
